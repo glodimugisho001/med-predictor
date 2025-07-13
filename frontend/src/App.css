@@ -1,0 +1,9 @@
+select,
+select::picker(select){
+    appearance: base-select;
+}
+select::picker(select){
+    padding: 8px 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
