@@ -1,4 +1,4 @@
-
+import { Analytics } from "@vercel/analytics/react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ResultDiabetics from "./ResultDiabetics";
@@ -389,6 +389,7 @@ const Formulaire = ({setResult, setResultData}) => {
           </div>
         </main>
       </div>
+      <Analytics/>
     </>
   )
 } 
