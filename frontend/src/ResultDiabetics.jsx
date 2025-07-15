@@ -67,16 +67,16 @@ export default function ResultDiabetics() {
                     <span className="text-gray-800 font-semibold">{value?.genre}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600 font-medium">Poids</span>
-                    <span className="text-gray-800 font-semibold">{value?.weight} kg</span>
+                    <span className="text-gray-600 font-medium">Indice de Masse Corporelle</span>
+                    <span className="text-gray-800 font-semibold">{value?.MasseCorporelle} kg/m²</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600 font-medium">Taille</span>
-                    <span className="text-gray-800 font-semibold">{value?.height} cm</span>
+                    <span className="text-gray-600 font-medium">Hémoglobine gliquée</span>
+                    <span className="text-gray-800 font-semibold">{value?.hemoglobine} %</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600 font-medium">Pression artérielle</span>
-                    <span className="text-gray-800 font-semibold">{value?.bloodPressure} mmHg</span>
+                    <span className="text-gray-600 font-medium">Niveau du glocose</span>
+                    <span className="text-gray-800 font-semibold">{value?.glucose} mg/dL</span>
                   </div>
                 </div>
               </div>
@@ -86,35 +86,25 @@ export default function ResultDiabetics() {
                 <h4 className="font-medium text-gray-700 text-sm uppercase tracking-wide mb-3">
                   Facteurs de Risque
                 </h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600 font-medium">Antécédents familiaux</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      value?.antecedant === "Oui" 
-                        ? "bg-red-100 text-red-800" 
-                        : "bg-green-100 text-green-800"
-                    }`}>
-                      {value?.antecedant}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600 font-medium">Activité physique</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      value?.physique === "Oui" 
-                        ? "bg-green-100 text-green-800" 
-                        : "bg-red-100 text-red-800"
-                    }`}>
-                      {value?.physique}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="text-gray-600 font-medium">Hypertension</span>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      value?.arterielle === "Oui" 
+                      value?.hypertension === "Oui" 
                         ? "bg-red-100 text-red-800" 
                         : "bg-green-100 text-green-800"
                     }`}>
-                      {value?.arterielle}
+                      {value?.hypertension}
+                    </span>
+                  </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Maladie Cardiaque</span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      value?.cardiaque === "Oui" 
+                        ? "bg-red-100 text-red-800" 
+                        : "bg-green-100 text-green-800"
+                    }`}>
+                      {value?.cardiaque}
                     </span>
                   </div>
                 </div>
@@ -125,7 +115,7 @@ export default function ResultDiabetics() {
             {value?.symptomes && value.symptomes.length > 0 && (
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <h4 className="font-medium text-gray-700 text-sm uppercase tracking-wide mb-3">
-                  Symptômes Signalés
+                  fumeur Symptômes Signalés
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {value.symptomes.map((symptom, index) => (

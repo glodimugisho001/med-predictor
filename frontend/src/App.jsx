@@ -16,31 +16,25 @@ export const MyContext = createContext()
 const dataRisque = {
   data1: [
     {
-      title: "Avez-vous des antécédents familiaux de diabète ?",
+      title: "Hypertension ?",
       oui: "Oui",
       non: "Non",
-      nom: "antecedant",
+      nom: "hypertension",
     },
     {
-      title: "Pratiquez-vous une activité physique régulière ?",
+      title: "Maladie Cardiaque ?",
       oui: "Oui",
       non: "Non",
-      nom: "physique",
-    },
-    {
-      title: "Avez-vous de l'hypertension artérielle ?",
-      oui: "Oui",
-      non: "Non",
-      nom: "arterielle",
-    },
+      nom: "cardiaque",
+    }
   ],
-  dataSymptome: [
-    "Soif excessive",
-    "Urination fréquente",
-    "Fatigue inhabituelle",
-    "Vision flouen",
-    "Cicatrisation lente",
-    "Infections fréquentes",
+  FumerSymptome: [
+    'No Info',
+    "Never",
+    "Former",
+    "current",
+    "not current ",
+    "Ever"
   ],
 };
 
@@ -89,22 +83,25 @@ const Formulaire = ({setResult, setResultData}) => {
       .string()
       .required("Le genre est requis")
       .oneOf(["Homme", "Femme"], "Le genre doit être 'Homme' ou 'Femme'"),
-    weight: yup
+    MasseCorporelle: yup
       .number()
       .typeError("Le poids est requis")
       .required("Le poids est requis")
-      .min(0, "Le poids doit être un nombre positif"),
-    height: yup
+      .min(10, "La masse corporelle doit être entre 10 et 60")
+      .max(60, "La masse corporelle doit être entre 10 et 60"),
+    hemoglobine: yup
       .number()
       .typeError("La taille est requise")
       .required("La taille est requise")
-      .min(0, "La taille doit être un nombre positif"),
-    bloodPressure: yup
+      .min(3, "L'hemoglobine doit être entre 3 et 15")
+      .max(15, "L'hemoglobine doit être entre 3 et 15"),
+    glucose: yup
       .number()
       .typeError("La pression artérielle est requise")
       .required("La pression artérielle est requise")
-      .min(0, "La pression artérielle doit être un nombre positif"),
-    symptomes: yup.array().of(yup.string()).optional(),
+      .min(50, "Le niveau de glucose doit être entre 50 et 500")
+      .max(500, "Le niveau de glucose doit être entre 50 et 500"),
+    //symptomes: yup.array().of(yup.string()).optional(),
     ...radioFields,
   });
   const {
@@ -225,64 +222,72 @@ const Formulaire = ({setResult, setResultData}) => {
                   </div>
 
                   <div>
-                    <label htmlFor="weight" className="block text-sm font-medium text-gray-700 mb-2">
-                      Poids (kg) <span className="text-red-500">*</span>
+                    <label htmlFor="MasseCorporelle" className="block text-sm font-medium text-gray-700 mb-2">
+                    Indice de Masse Corporelle (kg/m²) <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
-                      id="weight"
-                      {...register("weight")}
-                      placeholder="Entrez votre poids"
+                      id="MasseCorporelle"
+                      {...register("MasseCorporelle")}
+                      placeholder="ex : 22.5"
+                      step="0.1"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                     />
-                    {errors.weight && (
+                    {errors.MasseCorporelle && (
                       <p className="mt-1 text-sm text-red-600 flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        {errors.weight.message}
+                        {errors.MasseCorporelle.message}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="height" className="block text-sm font-medium text-gray-700 mb-2">
-                      Taille (cm) <span className="text-red-500">*</span>
+                    <label htmlFor="hemoglobine
+                      " className="block text-sm font-medium text-gray-700 mb-2">
+                      Hémoglobine gliquée (%) <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
-                      id="height"
-                      {...register("height")}
-                      placeholder="Entrez votre taille"
+                      id="hemoglobine"
+                      {...register("hemoglobine")}
+                      placeholder="ex : 6.5" 
+                      min="3"
+                      max="15"
+                      step="0.1"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                     />
-                    {errors.height && (
+                    {errors.hemoglobine && (
                       <p className="mt-1 text-sm text-red-600 flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        {errors.height.message}
+                        {errors.hemoglobine.message}
                       </p>
                     )}
                   </div>
 
                   <div className="md:col-span-2">
-                    <label htmlFor="bloodPressure" className="block text-sm font-medium text-gray-700 mb-2">
-                      Pression artérielle (mmHg) <span className="text-red-500">*</span>
+                    <label htmlFor="glucose" className="block text-sm font-medium text-gray-700 mb-2">
+                    Niveau du glocose (mg/dL) <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
-                      id="bloodPressure"
-                      {...register("bloodPressure")}
-                      placeholder="Entrez votre pression artérielle"
+                      id="glucose"
+                      {...register("glucose")}
+                      placeholder="ex : 110" 
+                      min="50"
+                      max="500"
+                      step="0.1"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                     />
-                    {errors.bloodPressure && (
+                    {errors.glucose && (
                       <p className="mt-1 text-sm text-red-600 flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        {errors.bloodPressure.message}
+                        {errors.glucose.message}
                       </p>
                     )}
                   </div>
@@ -341,7 +346,7 @@ const Formulaire = ({setResult, setResultData}) => {
                   <svg className="w-5 h-5 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  Symptômes Récents
+                  Fumer Symptome
                 </h3>
                 
                 <div className="bg-gray-50 rounded-lg p-6">
@@ -351,7 +356,7 @@ const Formulaire = ({setResult, setResultData}) => {
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {dataRisque.dataSymptome.map((item, index) => (
+                    {dataRisque.FumerSymptome.map((item, index) => (
                       <label key={index} className="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer transition-colors duration-200">
                         <input
                           type="checkbox"
