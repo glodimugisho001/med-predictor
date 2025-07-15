@@ -6,6 +6,7 @@ import * as yup from "yup";
 import "./App.css";
 import { useState, createContext } from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const MyContext = createContext()
 // Data for risk factors and symptoms
 // This data structure is used to render the form dynamically
